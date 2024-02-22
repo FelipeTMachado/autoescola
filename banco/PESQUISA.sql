@@ -1,0 +1,11 @@
+USE AUTOESCOLA;
+
+SET @@autocommit = ON;
+
+SELECT @@autocommit;
+
+BEGIN 
+	INSERT INTO PESSOA VALUES (1, "FELIPE", "09297363970");
+
+	COMMIT
+END
