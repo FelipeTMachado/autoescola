@@ -1,15 +1,18 @@
 package sistema.visual;
 
 public class VisualUsuario extends Visual{
+	// ATRIBUTOS
 	private String usuario;
 	private String senha;
 	private int tipo;
+	
 	
 	
 	// CONSTRUCTOR
 	public VisualUsuario() {
 		
 	}
+	
 	
 	
 	public void login() {

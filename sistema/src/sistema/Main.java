@@ -1,15 +1,19 @@
 package sistema;
 
-import sistema.sistema.Sistema;
+import sistema.controle.ControleUsuario;
+import sistema.persistencia.PersistenciaUsuario;
+import sistema.persistencia.mysql.PersistenciaMySQLUsuario;
+import sistema.sistema.Aplicacao;
 
 public class Main {
 	public static void main(String[] args) {
-		Sistema sistema = new Sistema();
-		
 		try {
-			sistema.iniciarSistema();
-		} finally {
-			sistema.finalizarSistema();
-		}
+			Aplicacao.getInstance();
+			
+			ControleUsuario controle = new ControleUsuario(new PersistenciaMySQLUsuario());
+			
+		} catch (Exception e) {
+			
+		} 
 	}
 }
