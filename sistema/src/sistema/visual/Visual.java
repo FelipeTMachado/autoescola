@@ -5,39 +5,56 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
-import sistema.sistema.Sistema;
+import sistema.sistema.Aplicacao;
 
 public class Visual {
-	private static int tamanhoTela = 80;
+	private static Visual visual;
+	public int tamanhoTela = 80;
 	
-	public static void configurarTela(int prTamanhoTela) {
-		Visual.tamanhoTela = prTamanhoTela;
+	public void configurarTela(int prTamanhoTela) {
+		this.tamanhoTela = prTamanhoTela;
 	}
+	
+	private Visual() {
+		
+	}
+	
+	public static Visual getInstance() {
+		if (visual == null) {
+			visual = new Visual();
+			
+			return visual;
+		} else
+			return visual;
+	}
+	
+	
 	
 	// RETORNA DADO
 	public String retornaDado(String prTexto) {
 		if (prTexto.trim().equals("")) {
 			System.out.print(prTexto);
-			return Sistema.leitura.nextLine();
+			return Aplicacao.getInstance().getScanner().nextLine();
+			
 		} else {
-			if (Sistema.console == null) {
+			if (Aplicacao.getInstance().getConsole() == null) {
 				System.out.print("| " + prTexto);
 				
-				return Sistema.leitura.nextLine();
+				return Aplicacao.getInstance().getScanner().nextLine();
 			} else {
 				String msg = ("| " + prTexto);
-				return Sistema.console.readLine(msg);
+				return Aplicacao.getInstance().getConsole().readLine(msg);
 			}
 		}
 	}
 	
 	// RETORNA DADO COM MASCARA DE SENHA
 	public String retornaPassword(String prTexto) {
-		if (Sistema.console == null) {
+		if (Aplicacao.getInstance().getConsole()  == null) {
 			System.out.print("| " + prTexto);
-			return Sistema.leitura.nextLine();
+			return Aplicacao.getInstance().getScanner().nextLine();
 		} else {
-			return new String(Sistema.console.readPassword("| " + prTexto));
+			return new String(Aplicacao.getInstance().getConsole().readPassword("| " + prTexto));
 		}
 	}
 	
@@ -54,6 +71,10 @@ public class Visual {
 		
 		return caracteres;
 	};
+	
+	public void visualizarTextoSemFormatacao(String prTexto) {
+		System.out.println(prTexto);
+	}
 	
 	public void visualizarTelaLimpa() {
 		try {
@@ -86,11 +107,11 @@ public class Visual {
 	}
 	
 	public void visualizarTextoAlinhadoDireita(String prTexto) {
-		System.out.println("|" + multiplicarCaracteres(" ", (Visual.tamanhoTela - prTexto.length() - 1)) + prTexto + " |");
+		System.out.println("|" + multiplicarCaracteres(" ", (tamanhoTela - prTexto.length() - 1)) + prTexto + " |");
 	}
 	
 	public void visualizarTextoAlinhadoEsquerda(String prTexto) {		
-		System.out.println("| " + prTexto + multiplicarCaracteres(" ", (Visual.tamanhoTela - prTexto.length() - 1)) + "|");
+		System.out.println("| " + prTexto + multiplicarCaracteres(" ", (tamanhoTela - prTexto.length() - 1)) + "|");
 	}
 	
 	public void visualizarTextoAlinhadoCentro(String prTexto) {
@@ -98,7 +119,7 @@ public class Visual {
 	
 		int espacoTotal = 0;
 		
-		espacoTotal = Visual.tamanhoTela - prTexto.length();
+		espacoTotal = tamanhoTela - prTexto.length();
 		
 		if ((espacoTotal % 2) == 0) {
 			String lado = multiplicarCaracteres(" ", espacoTotal / 2);

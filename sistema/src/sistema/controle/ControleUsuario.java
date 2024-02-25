@@ -1,33 +1,38 @@
 package sistema.controle;
 
 import sistema.modelo.ModeloUsuario;
-import sistema.persistencia.PersistenciaUsuario;
+import sistema.persistencia.interfaces.Persistencia;
+import sistema.sistema.Aplicacao;
 import sistema.visual.VisualUsuario;
 
 public class ControleUsuario {
 	// ATRIBUTOS
 	private VisualUsuario visual;
 	private ModeloUsuario modelo;
-	private PersistenciaUsuario persistencia;
-	
+	private Persistencia<ModeloUsuario> persistencia;
 	
 	
 	// CONSTRUTOR
-	public ControleUsuario(PersistenciaUsuario prPersistencia) {
+	public ControleUsuario(Persistencia<ModeloUsuario> prPersistencia) {
 		this.persistencia = prPersistencia;
 	}
-	
-	
-	
+
 	public void login() {
 		visual = new VisualUsuario();
 		visual.login();	
-	
 		
-		modelo = persistencia.buscar("", "");
+		ModeloUsuario modeloTemp = new ModeloUsuario();
+		modeloTemp.setUsuario(visual.getUsuario());
+		modeloTemp.setSenha(visual.getSenha());
+		
+		modelo = persistencia.buscar(modeloTemp);
+		
+		if (modelo == null) {
+			visual.mensagemUsuarioSenhaIncorretos();
+		} else {
+			Aplicacao.getInstance().setUsuarioConectado(modelo.getTipo());
+		}
 	}
-	
-	
 	
 	// METODOS GETTERS AND SETTERS
 	public VisualUsuario getVisual() {
@@ -44,13 +49,5 @@ public class ControleUsuario {
 	
 	public void setModelo(ModeloUsuario modelo) {
 		this.modelo = modelo;
-	}
-	
-	public PersistenciaUsuario getPersistencia() {
-		return persistencia;
-	}
-	
-	public void setPersistencia(PersistenciaUsuario persistencia) {
-		this.persistencia = persistencia;
 	}
 }

@@ -3,13 +3,17 @@ package sistema.sistema;
 import java.io.Console;
 import java.util.Scanner;
 
+import sistema.persistencia.TipoPersistencia;
 import sistema.visual.Visual;
 
 // CLASSE SINGLETON
 public class Aplicacao {
 	private static Aplicacao aplicacao;
-	private static Scanner leitura;
-	private static Console console;
+	private Scanner scanner;
+	private Console console;
+	private int usuarioConectado;
+	private TipoPersistencia tipoPersistencia;
+	
 	
 	private Aplicacao() {
 		
@@ -19,10 +23,10 @@ public class Aplicacao {
 		if (aplicacao == null) {
 			aplicacao = new Aplicacao();
 			
-			leitura = new Scanner(System.in);
-			console = System.console();
+			aplicacao.scanner = new Scanner(System.in);
+			aplicacao.console = System.console();
 			
-			Visual.configurarTela(70);
+			Visual.getInstance().configurarTela(70);
 		}
 		
 		return aplicacao;
@@ -30,19 +34,27 @@ public class Aplicacao {
 
 	
 	// GETTERS AND SETTERS
-	public static Scanner getLeitura() {
-		return leitura;
+	public Scanner getScanner() {
+		return scanner;
 	}
 
-	public static void setLeitura(Scanner leitura) {
-		Aplicacao.leitura = leitura;
-	}
-
-	public static Console getConsole() {
+	public Console getConsole() {
 		return console;
 	}
 
-	public static void setConsole(Console console) {
-		Aplicacao.console = console;
+	public int getUsuarioConectado() {
+		return usuarioConectado;
+	}
+
+	public void setUsuarioConectado(int usuarioConectado) {
+		this.usuarioConectado = usuarioConectado;
+	}
+
+	public TipoPersistencia getTipoPersistencia() {
+		return tipoPersistencia;
+	}
+
+	public void setTipoPersistencia(TipoPersistencia tipoPersistencia) {
+		this.tipoPersistencia = tipoPersistencia;
 	}
 }

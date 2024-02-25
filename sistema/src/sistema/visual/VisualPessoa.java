@@ -1,8 +1,6 @@
 package sistema.visual;
 
-import java.util.Scanner;
-
-public class VisualPessoa extends Visual{
+public class VisualPessoa {
 	//ATRIBUTOS
 	private String codigo;
 	private String nome;
@@ -10,11 +8,10 @@ public class VisualPessoa extends Visual{
 	private String dataNascimento;
 	private String email;
 	
-	private Scanner leitura;
 	
 	// CONSTRUTOR
-	public VisualPessoa(Scanner leitura) {
-		this.leitura = leitura;
+	public VisualPessoa() {
+		
 	}
 	
 	// GETTERS AND SETTERS

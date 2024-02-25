@@ -1,6 +1,6 @@
 package sistema.visual;
 
-public class VisualUsuario extends Visual{
+public class VisualUsuario {
 	// ATRIBUTOS
 	private String usuario;
 	private String senha;
@@ -16,14 +16,18 @@ public class VisualUsuario extends Visual{
 	
 	
 	public void login() {
-		visualizarTelaLimpa();
-		visualizarTitulo("SISTEMA AUTOESCOLA");
-		visualizarEspacoEmBranco();
-		this.usuario = retornaPassword("USUARIO: ");
-		this.senha = retornaPassword("SENHA: ");
-		
-		visualizarTextoAlinhadoEsquerda(usuario);
-		visualizarTextoAlinhadoEsquerda(senha);
+		Visual.getInstance().visualizarTelaLimpa();
+		Visual.getInstance().visualizarTitulo("SISTEMA AUTOESCOLA");
+		Visual.getInstance().visualizarEspacoEmBranco();
+		this.usuario = Visual.getInstance().retornaDado("USUARIO: ");
+		this.senha = Visual.getInstance().retornaPassword("SENHA: ");
+	}
+	
+	public void mensagemUsuarioSenhaIncorretos() {
+		Visual.getInstance().visualizarTelaLimpa();
+		Visual.getInstance().visualizarTitulo("SISTEMA AUTOESCOLA");
+		Visual.getInstance().visualizarTextoAlinhadoCentro("USUÁRIO OU SENHA INCORRETOS!");
+		Visual.getInstance().visualizarLinha();
 	}
 	
 	
