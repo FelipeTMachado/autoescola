@@ -30,6 +30,11 @@ public class VisualUsuario {
 		Visual.getInstance().visualizarLinha();
 	}
 	
+	public void tentativas(int prContagem) {
+		Visual.getInstance().visualizarTextoAlinhadoCentro(String.format("VOCE TEM %s TENTATIVA(S)", Math.abs(prContagem - 2)));
+		Visual.getInstance().visualizarLinha();
+		Visual.getInstance().retornaDado("DIGITE ENTER PARA TENTAR NOVAMENTE...");
+	}
 	
 	// GETTERS AND SETTERS
 	public String getUsuario() {

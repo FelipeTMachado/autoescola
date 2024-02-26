@@ -14,6 +14,20 @@ public class VisualPessoa {
 		
 	}
 	
+	public String menuAluno(String prNome) {
+		Visual.getInstance().visualizarTelaLimpa();
+		Visual.getInstance().visualizarTitulo("SISTEMA AUTOESCOLA");
+		Visual.getInstance().visualizarTextoAlinhadoCentro(prNome);
+		Visual.getInstance().visualizarEspacoEmBranco();
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("1 - PROGRESSO");
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("2 - PAGAMENTOS");
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("3 - ALTERAR DADOS");
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("4 - EMITIRCERTIFICADO");
+		Visual.getInstance().visualizarLinha();
+	
+		return Visual.getInstance().retornaDado(prNome);
+	}
+	
 	// GETTERS AND SETTERS
 	public String getCodigo() {
 		return codigo;

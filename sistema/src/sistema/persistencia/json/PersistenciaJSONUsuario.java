@@ -1,9 +1,14 @@
 package sistema.persistencia.json;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import sistema.modelo.ModeloUsuario;
 import sistema.persistencia.interfaces.Persistencia;
 
-public class PersistenciaJSONUsuario implements Persistencia<ModeloUsuario>{
+public class PersistenciaJSONUsuario implements Persistencia<ModeloUsuario> {
+	private List<ModeloUsuario> listaUsuarios = new ArrayList<ModeloUsuario>();
+	
 	// CONSTRUTOR
 	public PersistenciaJSONUsuario() {
 		// TODO Auto-generated constructor stub
