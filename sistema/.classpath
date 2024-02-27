@@ -8,5 +8,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="/home/desenv/Documentos/autoescola/sistema/libs/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar"/>
 	<classpathentry kind="lib" path="/home/desenv/Documentos/autoescola/sistema/libs/gson-2.10.1.jar"/>
+	<classpathentry kind="lib" path="/home/desenv/Documentos/autoescola/sistema/libs/xml/jdom-2.0.6.1/jdom-2.0.6.1.jar" sourcepath="">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/desenv/Documentos/autoescola/sistema/libs/xml/jdom-2.0.6.1/jdom-2.0.6.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

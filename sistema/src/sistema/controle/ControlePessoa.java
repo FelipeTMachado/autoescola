@@ -13,6 +13,7 @@ public class ControlePessoa {
 	}
 	
 	public boolean menuAluno() {
+		visual = new VisualPessoa();
 		visual.menuAluno("FELIPE");
 		
 		return true;

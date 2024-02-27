@@ -8,6 +8,10 @@ public class PersistenciaXMLPessoa implements Persistencia<ModeloPessoa>{
 		// TODO Auto-generated constructor stub
 	}
 	
+	public void gravarTodosUsuarios() {
+//		Element config = new Element("Clientes");
+	}
+	
 	@Override
 	public ModeloPessoa buscar(ModeloPessoa prModelo) {
 		// TODO Auto-generated method stub

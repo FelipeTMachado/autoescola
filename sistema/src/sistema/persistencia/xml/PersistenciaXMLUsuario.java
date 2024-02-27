@@ -1,9 +1,15 @@
 package sistema.persistencia.xml;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import sistema.modelo.ModeloUsuario;
 import sistema.persistencia.interfaces.Persistencia;
 
 public class PersistenciaXMLUsuario implements Persistencia<ModeloUsuario>{
+	private List<ModeloUsuario> listaUsuarios = new ArrayList<ModeloUsuario>();
+	
+	
 	// CONSTRUTOR
 	public PersistenciaXMLUsuario() {
 		// TODO Auto-generated constructor stub

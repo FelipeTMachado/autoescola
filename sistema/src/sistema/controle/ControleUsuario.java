@@ -34,6 +34,25 @@ public class ControleUsuario {
 		}
 	}
 	
+	
+	public void excluirUsuario() {
+		modelo = new ModeloUsuario();
+		modelo.setCodigo(2);
+		
+		persistencia.excluir(modelo);
+	}
+	
+	public void salvarUsuario() {
+		modelo = new ModeloUsuario();
+		modelo.setCodigo(2);
+		modelo.setPessoa(2);
+		modelo.setUsuario("tai");
+		modelo.setSenha("123");
+		modelo.setTipo(2);
+		
+		persistencia.salvar(modelo);
+	}
+	
 	// METODOS GETTERS AND SETTERS
 	public VisualUsuario getVisual() {
 		return visual;

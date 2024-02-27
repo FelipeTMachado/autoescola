@@ -6,7 +6,6 @@ import sistema.controle.FabricaControle;
 import sistema.persistencia.TipoPersistencia;
 import sistema.persistencia.mysql.ConexaoMySQL;
 import sistema.sistema.Aplicacao;
-import sistema.visual.Visual;
 
 public class Main {
 	public static void main(String[] args) {
@@ -14,7 +13,10 @@ public class Main {
 			Aplicacao.getInstance().setTipoPersistencia(TipoPersistencia.JSON);
 			ConexaoMySQL.getInstance().iniciarConexao("localhost", "root", "315865", "AUTOESCOLA", 3306);
 				
-			iniciarTelas();
+			//iniciarTelas();
+			
+			ControleUsuario controle = FabricaControle.criarControleUsuario();
+			controle.salvarUsuario();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} 
