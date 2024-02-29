@@ -10,13 +10,14 @@ import sistema.sistema.Aplicacao;
 public class Main {
 	public static void main(String[] args) {
 		try {
-			Aplicacao.getInstance().setTipoPersistencia(TipoPersistencia.JSON);
+			Aplicacao.getInstance().setTipoPersistencia(TipoPersistencia.XML);
 			ConexaoMySQL.getInstance().iniciarConexao("localhost", "root", "315865", "AUTOESCOLA", 3306);
 				
 			//iniciarTelas();
 			
 			ControleUsuario controle = FabricaControle.criarControleUsuario();
-			controle.salvarUsuario();
+			controle.buscar();
+			//controle.salvarUsuario();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} 
@@ -34,14 +35,14 @@ public class Main {
 				contagem = 0;
 				
 				ControlePessoa controlePessoa = FabricaControle.criarControlePessoa();
-				ehSair = controlePessoa.menuFuncionario();
+				ehSair = controlePessoa.menuFuncionario(controleUsuario.getModelo().getPessoa());
 			}
 			
 			if (Aplicacao.getInstance().getUsuarioConectado() == 2) {
 				contagem = 0;
 			
 				ControlePessoa controlePessoa = FabricaControle.criarControlePessoa();
-				ehSair = controlePessoa.menuAluno();
+				ehSair = controlePessoa.menuAluno(controleUsuario.getModelo().getPessoa());
 			}
 			
 			if (Aplicacao.getInstance().getUsuarioConectado() == 0) {

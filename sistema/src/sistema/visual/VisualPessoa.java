@@ -22,11 +22,31 @@ public class VisualPessoa {
 		Visual.getInstance().visualizarTextoAlinhadoEsquerda("1 - PROGRESSO");
 		Visual.getInstance().visualizarTextoAlinhadoEsquerda("2 - PAGAMENTOS");
 		Visual.getInstance().visualizarTextoAlinhadoEsquerda("3 - ALTERAR DADOS");
-		Visual.getInstance().visualizarTextoAlinhadoEsquerda("4 - EMITIRCERTIFICADO");
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("4 - EMITIR CERTIFICADO");
+		Visual.getInstance().visualizarEspacoEmBranco();
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("9 - VOLTAR");
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("0 - SAIR");
 		Visual.getInstance().visualizarLinha();
 	
-		return Visual.getInstance().retornaDado(prNome);
+		return Visual.getInstance().retornaDado("DIGITE SUA OPCAO: ");
 	}
+	
+	
+	public String menuFuncionario(String prNome) {
+		Visual.getInstance().visualizarTelaLimpa();
+		Visual.getInstance().visualizarTitulo("SISTEMA AUTOESCOLA");
+		Visual.getInstance().visualizarTextoAlinhadoCentro(prNome);
+		Visual.getInstance().visualizarEspacoEmBranco();
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("1 - ALUNOS");
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("2 - FUNCIONARIOS");
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("3 - VEICULOS");
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("4 - TURMAS");
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("5 - MEUS DADOS");
+		Visual.getInstance().visualizarLinha();
+	
+		return Visual.getInstance().retornaDado("DIGITE SUA OPCAO: ");
+	}
+	
 	
 	// GETTERS AND SETTERS
 	public String getCodigo() {

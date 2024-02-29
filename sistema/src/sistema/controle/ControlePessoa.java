@@ -6,20 +6,35 @@ import sistema.visual.VisualPessoa;
 
 public class ControlePessoa {
 	VisualPessoa visual;
+	ModeloPessoa modelo;
+	
 	private Persistencia<ModeloPessoa> persistencia;
 	
 	public ControlePessoa(Persistencia<ModeloPessoa> prPersistencia) {
 		persistencia = prPersistencia;
 	}
 	
-	public boolean menuAluno() {
+	public boolean menuAluno(int prCodigoPessoa) {
 		visual = new VisualPessoa();
-		visual.menuAluno("FELIPE");
+		modelo = new ModeloPessoa();
+		modelo.setCodigo(prCodigoPessoa);
+		
+		modelo = persistencia.buscar(modelo);
+		
+		visual.menuAluno(modelo.getNome());
 		
 		return true;
 	}
 	
-	public boolean menuFuncionario() {
+	public boolean menuFuncionario(int prCodigoPessoa) {
+		visual = new VisualPessoa();
+		modelo = new ModeloPessoa();
+		modelo.setCodigo(prCodigoPessoa);
+		
+		modelo = persistencia.buscar(modelo);
+		
+		visual.menuFuncionario(modelo.getNome());
+		
 		return true;
 	}
 

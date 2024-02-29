@@ -13,7 +13,6 @@ public class PersistenciaMySQLUsuario implements Persistencia<ModeloUsuario>{
 	}
 	
 	
-	
 	@Override
 	public ModeloUsuario buscar(ModeloUsuario prModelo) {
 		ModeloUsuario resultado;

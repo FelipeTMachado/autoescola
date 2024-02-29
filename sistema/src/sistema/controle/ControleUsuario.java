@@ -42,16 +42,19 @@ public class ControleUsuario {
 		persistencia.excluir(modelo);
 	}
 	
-	public void salvarUsuario() {
-		modelo = new ModeloUsuario();
-		modelo.setCodigo(2);
-		modelo.setPessoa(2);
-		modelo.setUsuario("tai");
-		modelo.setSenha("123");
-		modelo.setTipo(2);
-		
-		persistencia.salvar(modelo);
+	public boolean salvarUsuario() {
+		return persistencia.salvar(modelo);
 	}
+	
+	public void buscar() {
+		modelo = new ModeloUsuario();
+		
+		modelo.setUsuario("feh");
+		
+		System.out.println(persistencia.buscar(modelo).getSenha());
+	}
+	
+	
 	
 	// METODOS GETTERS AND SETTERS
 	public VisualUsuario getVisual() {
@@ -68,5 +71,13 @@ public class ControleUsuario {
 	
 	public void setModelo(ModeloUsuario modelo) {
 		this.modelo = modelo;
+	}
+
+	public Persistencia<ModeloUsuario> getPersistencia() {
+		return persistencia;
+	}
+
+	public void setPersistencia(Persistencia<ModeloUsuario> persistencia) {
+		this.persistencia = persistencia;
 	}
 }

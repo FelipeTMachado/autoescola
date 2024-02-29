@@ -1,7 +1,7 @@
 package sistema.modelo;
 
 public class ModeloPessoa {
-	private String codigo;
+	private int codigo;
 	private String nome;
 	private String cpf;
 	private String dataNascimento;
@@ -15,10 +15,10 @@ public class ModeloPessoa {
 	
 	
 	// GETTERS AND SETTERS
-	public String getCodigo() {
+	public int getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(String codigo) {
+	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 	public String getNome() {

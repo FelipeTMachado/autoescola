@@ -31,13 +31,12 @@ public class PersistenciaJSONUsuario implements Persistencia<ModeloUsuario> {
 		try {
 			leitor = new BufferedReader(new FileReader("dados/json/usuario.json"));
 			
-			
 		} catch (FileNotFoundException e) {
 			// TODO TRATAR ERRO E PASSAR PARA FRENTE
 		}
 		
 		Type listType = new TypeToken<ArrayList<ModeloUsuario>>(){}.getType();
-	    listaUsuarios = new ArrayList<ModeloUsuario>();
+//	    listaUsuarios = new ArrayList<ModeloUsuario>();
 	    listaUsuarios = new Gson().fromJson(leitor, listType);
 	}
 

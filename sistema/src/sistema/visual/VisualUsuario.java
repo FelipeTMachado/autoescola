@@ -13,8 +13,36 @@ public class VisualUsuario {
 		
 	}
 	
+	public int menuGerenciamentoUsuarioFuncionario() {
+		Visual.getInstance().visualizarTitulo("SISTEMA AUTOESCOLA");
+		Visual.getInstance().visualizarTextoAlinhadoCentro("GERENCIAMENTO USUARIO");
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("1 - NOVO");
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("2 - EXCLUIR");
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("3 - ALTERAR");
+		Visual.getInstance().visualizarEspacoEmBranco();
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("9 - VOLTAR");
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("0 - SAIR");
+		Visual.getInstance().visualizarLinha();
+		
+		return Integer.parseInt(Visual.getInstance().retornaDado("DIGITE SUA ESCOLHA: "));
+	}
 	
 	
+	public int menuGerenciamentoUsuarioAluno() {
+		Visual.getInstance().visualizarTitulo("SISTEMA AUTOESCOLA");
+		Visual.getInstance().visualizarTextoAlinhadoCentro("GERENCIAMENTO USUARIO");
+		Visual.getInstance().visualizarEspacoEmBranco();
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda(String.format("USUARIO: %s", usuario));
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda(String.format("SENHA: %s", senha));
+		Visual.getInstance().visualizarLinha();
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("1 - ALTERAR");
+		Visual.getInstance().visualizarEspacoEmBranco();
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("9 - VOLTAR");
+		Visual.getInstance().visualizarTextoAlinhadoEsquerda("0 - SAIR");
+		Visual.getInstance().visualizarLinha();
+		
+		return Integer.parseInt(Visual.getInstance().retornaDado("DIGITE SUA ESCOLHA: "));
+	}
 	public void login() {
 		Visual.getInstance().visualizarTelaLimpa();
 		Visual.getInstance().visualizarTitulo("SISTEMA AUTOESCOLA");
