@@ -1,16 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<usuarios>
-    <titulo>Usuarios</titulo>
-    <usuario usu_codigo="1">
-        <usu_usuario>feh</usu_usuario>
-        <usu_senha>123</usu_senha>
-        <pes_codigo>1</pes_codigo>
-        <usu_tipo>1</usu_tipo>
-    </usuario>
-    <usuario usu_codigo="2">
-		<usu_usuario>tai</usu_usuario>
-        <usu_senha>123</usu_senha>
-        <pes_codigo>2</pes_codigo>
-        <usu_tipo>2</usu_tipo>
-        </usuario>
-</usuarios>
+<USUARIOS><USUARIO COD_USUARIO="1"><PES_CODIGO>1</PES_CODIGO><USU_USUARIO>feh</USU_USUARIO><USU_SENHA>123</USU_SENHA><USU_TIPO>1</USU_TIPO></USUARIO><USUARIO COD_USUARIO="2"><PES_CODIGO>2</PES_CODIGO><USU_USUARIO>tai</USU_USUARIO><USU_SENHA>123</USU_SENHA><USU_TIPO>2</USU_TIPO></USUARIO><USUARIO COD_USUARIO="3"><PES_CODIGO>3</PES_CODIGO><USU_USUARIO>peh</USU_USUARIO><USU_SENHA>123</USU_SENHA><USU_TIPO>2</USU_TIPO></USUARIO><USUARIO COD_USUARIO="4"><PES_CODIGO>3</PES_CODIGO><USU_USUARIO>joa</USU_USUARIO><USU_SENHA>123</USU_SENHA><USU_TIPO>2</USU_TIPO></USUARIO></USUARIOS>

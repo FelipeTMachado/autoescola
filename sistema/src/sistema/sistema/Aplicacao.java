@@ -14,7 +14,6 @@ public class Aplicacao {
 	private int usuarioConectado;
 	private TipoPersistencia tipoPersistencia;
 	
-	
 	private Aplicacao() {
 		
 	}

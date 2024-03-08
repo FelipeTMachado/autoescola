@@ -1,17 +1,20 @@
 package sistema.modelo;
 
 public class ModeloPessoa {
+	// ATRIBUTOS
 	private int codigo;
 	private String nome;
 	private String cpf;
-	private String dataNascimento;
-	private String email;
+	
+	
 	
 	
 	// CONSTRUTOR
 	public ModeloPessoa() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 	
 	
 	// GETTERS AND SETTERS
@@ -33,20 +36,11 @@ public class ModeloPessoa {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	public String getDataNascimento() {
-		return dataNascimento;
-	}
-	public void setDataNascimento(String dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
+	
+	
+	
+	
+	// TOSTRING
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -55,9 +49,6 @@ public class ModeloPessoa {
 		builder.append(", cpf=");
 		builder.append(cpf);
 		builder.append(", dataNascimento=");
-		builder.append(dataNascimento);
-		builder.append(", email=");
-		builder.append(email);
 		builder.append("]");
 		return builder.toString();
 	}

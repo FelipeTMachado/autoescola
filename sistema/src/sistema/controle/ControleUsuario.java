@@ -7,8 +7,8 @@ import sistema.visual.VisualUsuario;
 
 public class ControleUsuario {
 	// ATRIBUTOS
-	private VisualUsuario visual;
-	private ModeloUsuario modelo;
+	private VisualUsuario visual = new VisualUsuario();
+	private ModeloUsuario modelo = null;
 	private Persistencia<ModeloUsuario> persistencia;
 	
 	
@@ -18,14 +18,14 @@ public class ControleUsuario {
 	}
 
 	public void login() {
-		visual = new VisualUsuario();
 		visual.login();	
 		
-		ModeloUsuario modeloTemp = new ModeloUsuario();
-		modeloTemp.setUsuario(visual.getUsuario());
-		modeloTemp.setSenha(visual.getSenha());
+		ModeloUsuario usuario = new ModeloUsuario();
+		usuario.setCodigo(-1);
+		usuario.setUsuario(visual.getUsuario());
+		usuario.setSenha(visual.getSenha());
 		
-		modelo = persistencia.buscar(modeloTemp);
+		modelo = persistencia.buscar(usuario);
 		
 		if (modelo == null) {
 			visual.mensagemUsuarioSenhaIncorretos();
@@ -36,14 +36,51 @@ public class ControleUsuario {
 	
 	
 	public void excluirUsuario() {
-		modelo = new ModeloUsuario();
 		modelo.setCodigo(2);
 		
 		persistencia.excluir(modelo);
 	}
 	
-	public boolean salvarUsuario() {
-		return persistencia.salvar(modelo);
+	public void salvarUsuarioPadrao() {
+		modelo = new ModeloUsuario();
+		
+		modelo.setCodigo(1);
+		modelo.setUsuario("feh");
+		modelo.setSenha("123");
+		modelo.setTipo(1);
+		modelo.setPessoa(1);
+	
+		persistencia.salvar(modelo);
+		
+		modelo = new ModeloUsuario();
+		
+		modelo.setCodigo(2);
+		modelo.setUsuario("tai");
+		modelo.setSenha("123");
+		modelo.setTipo(2);
+		modelo.setPessoa(2);
+	
+		persistencia.salvar(modelo);
+		
+		modelo = new ModeloUsuario();
+		
+		modelo.setCodigo(3);
+		modelo.setUsuario("peh");
+		modelo.setSenha("123");
+		modelo.setTipo(2);
+		modelo.setPessoa(3);
+	
+		persistencia.salvar(modelo);
+		
+		modelo = new ModeloUsuario();
+		
+		modelo.setCodigo(4);
+		modelo.setUsuario("joa");
+		modelo.setSenha("123");
+		modelo.setTipo(2);
+		modelo.setPessoa(3);
+	
+		persistencia.salvar(modelo);
 	}
 	
 	public void buscar() {
@@ -54,6 +91,9 @@ public class ControleUsuario {
 		System.out.println(persistencia.buscar(modelo).getSenha());
 	}
 	
+	public void cadastrarNovoUsuario(int prPessoa) {
+		
+	}
 	
 	
 	// METODOS GETTERS AND SETTERS

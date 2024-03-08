@@ -47,4 +47,31 @@ public class ModeloUsuario {
 	public void setPessoa(int pessoa) {
 		this.pessoa = pessoa;
 	}
+
+
+
+	
+	
+	
+	// TOSTRING
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ModeloUsuario [codigo=");
+		builder.append(codigo);
+		builder.append(", usuario=");
+		builder.append(usuario);
+		builder.append(", senha=");
+		builder.append(senha);
+		builder.append(", tipo=");
+		builder.append(tipo);
+		builder.append(", pessoa=");
+		builder.append(pessoa);
+		builder.append("]");
+		return builder.toString();
+	}
+
+	
+	
+	
 }

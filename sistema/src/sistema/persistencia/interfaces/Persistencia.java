@@ -4,4 +4,5 @@ public interface Persistencia<T> {
 	public T buscar(T prModelo);
 	public boolean salvar(T prModelo);
 	public boolean excluir(T prModelo);
+	public int buscarProximo();
 }

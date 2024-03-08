@@ -1,10 +1,10 @@
 package sistema.persistencia.xml;
 
-import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.jdom2.Document;
@@ -16,8 +16,15 @@ import sistema.modelo.ModeloUsuario;
 import sistema.persistencia.interfaces.Persistencia;
 
 public class PersistenciaXMLUsuario implements Persistencia<ModeloUsuario>{
+	// ATRIBUTOS
 	private List<ModeloUsuario> listaUsuarios = new ArrayList<ModeloUsuario>();
-	private String LocalArquivo = "dados/xml/usuario.xml";
+	private String pastaDestino = "dados/xml";
+	private String nomeArquivo = "usuario.xml";
+	private String local = pastaDestino + "/" + nomeArquivo;
+	
+	// ATRIBUTOS XML
+	private Document documento;
+	private Element root;
 	
 	
 	// CONSTRUTOR
@@ -26,17 +33,27 @@ public class PersistenciaXMLUsuario implements Persistencia<ModeloUsuario>{
 	}
 	
 	
+	
+	
+	// METODOS DA INTERFACE
 	@Override
 	public ModeloUsuario buscar(ModeloUsuario prModelo) {
 		buscarTodosUsuarios();
 		
 		for (ModeloUsuario modelo : listaUsuarios) {
-	    	if (modelo.getUsuario().equals(prModelo.getUsuario())) {
-	    		if (modelo.getSenha().equals(prModelo.getSenha())) {
-	    			listaUsuarios.clear();
-		    		return modelo;
+			if (prModelo.getCodigo() == -1) {
+				if (modelo.getUsuario().equals(prModelo.getUsuario())) {
+		    		if (modelo.getSenha().equals(prModelo.getSenha())) {
+		    			listaUsuarios.clear();
+			    		return modelo;
+			    	}
 		    	}
-	    	}
+			} else {
+				if (modelo.getCodigo() == prModelo.getCodigo()) {
+					listaUsuarios.clear();
+					return modelo;
+				}
+			}
 	    }
 		
 		return null;
@@ -44,96 +61,148 @@ public class PersistenciaXMLUsuario implements Persistencia<ModeloUsuario>{
 	
 	@Override
 	public boolean excluir(ModeloUsuario prModelo) {
-		// TODO Auto-generated method stub
-		return false;
+		buscarTodosUsuarios();
+		
+		List<ModeloUsuario> listaAlterada = new ArrayList<ModeloUsuario>();
+		
+		for (ModeloUsuario modelo: listaUsuarios) {
+			if (!(prModelo.getCodigo() == modelo.getCodigo())) {
+				listaAlterada.add(modelo);
+			}
+		}
+		
+		listaUsuarios = null;
+		listaUsuarios = listaAlterada;
+		
+		return salvarTodosUsuarios();
 	}
 	
 	@Override
 	public boolean salvar(ModeloUsuario prModelo) {
-		gravarTodosUsuarios();
+		buscarTodosUsuarios();
+		
+		if (buscar(prModelo) == null) {
+			listaUsuarios.add(prModelo);
+			return salvarTodosUsuarios();
+		}
 		
 		return false;
 	}
 	
+	public int buscarProximo() {
+		buscarTodosUsuarios();
+		
+		if (listaUsuarios.isEmpty()) {
+			return 1;
+		} else {
+			ModeloUsuario modeloAux = null;
+			for (ModeloUsuario modelo: listaUsuarios) {
+				modeloAux = modelo;
+			}
+			
+			return modeloAux.getCodigo() + 1;
+		}
+	}
+	
+	// METODOS DE SUPORTE
 	public void buscarTodosUsuarios() {
 		listaUsuarios.clear();
-	
-		Document documento = null;
+		File arquivo = new File(local);
 		
-		SAXBuilder construtor = new SAXBuilder();
+		
 		try {
-			documento = construtor.build(LocalArquivo);
+			if (arquivo.exists()) {
+				SAXBuilder builder = new SAXBuilder();
+				
+				documento = builder.build(arquivo);
+				root = (Element) documento.getRootElement();
+				
+				List<Element> usuarios = root.getChildren();
+				
+				for (Element elemento: usuarios) {
+					ModeloUsuario usu = new ModeloUsuario();
+					
+					usu.setCodigo(Integer.parseInt(elemento.getAttributeValue("COD_USUARIO")));
+					usu.setPessoa(Integer.parseInt(elemento.getChildText("PES_CODIGO")));
+					usu.setSenha(elemento.getChildText("USU_SENHA"));
+					usu.setUsuario(elemento.getChildText("USU_USUARIO"));
+					usu.setTipo(Integer.parseInt(elemento.getChildText("USU_TIPO")));
+					
+					listaUsuarios.add(usu);
+				}
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-			return;
-		}
-		
-		Element total = documento.getRootElement();
-		
-		List<Element> lista = total.getChildren("usuario");
-		
-		for (Iterator<Element> i = lista.iterator(); i.hasNext();) {
-			Element elemento = (Element) i.next();
-			
-			ModeloUsuario modelo = new ModeloUsuario();
-			modelo.setCodigo(Integer.parseInt(elemento.getAttributeValue("usu_codigo")));
-			modelo.setPessoa(Integer.parseInt(elemento.getChildText("pes_codigo")));
-			modelo.setSenha(elemento.getChildText("usu_senha"));
-			modelo.setUsuario(elemento.getChildText("usu_usuario"));
-			modelo.setTipo(Integer.parseInt(elemento.getChildText("usu_tipo")));
-			
-			listaUsuarios.add(modelo);
 		}
 	}
 	
-	public boolean gravarTodosUsuarios() {
-		// CRIAR ELEMENTO QUE SERA O ROOT 
-		Element total = new Element("usuarios");
-		// SETA O ELEMENTO COMO ROOT
-		Document documento = new Document(total);
-		
-		// ELEMENTO QUE NOMEIA A PERSISTENCIA
-		Element titulo = new Element("titulo");
-		titulo.setText("Usuarios");
-		
-		// ADICIONA O TITULO NA TAG PRINCIPAL
-		total.addContent(titulo);
-		
-		for (ModeloUsuario modelo: listaUsuarios) {
-			Element usuario = new Element("usuario");
-			usuario.setAttribute("usu_codigo", String.format("%d", modelo.getCodigo()));
+	public boolean salvarTodosUsuarios() {
+		criarArquivo();
+		if (!listaUsuarios.isEmpty()) {
+			// CRIA O DOCUMENTO
+			documento         = new Document();
 			
-			Element usu_usuario = new Element("usu_usuario");
-			usu_usuario.setText(modelo.getUsuario());
+			// DEFINE O ELEMENTO QUE SERA O ROOT
+			root              = new Element("USUARIOS");		
+			documento.setRootElement(root);
 			
-			Element usu_senha = new Element("usu_senha");
-			usu_senha.setText(modelo.getSenha());
+			for (ModeloUsuario modelo: listaUsuarios) {
+				Element usu = new Element("USUARIO");
+				usu.setAttribute("COD_USUARIO", String.format("%d", modelo.getCodigo()));
+				
+				Element pes_codigo = new Element("PES_CODIGO");
+				pes_codigo.setText(String.format("%d", modelo.getPessoa()));
+				
+				Element usu_tipo = new Element("USU_TIPO");
+				usu_tipo.setText(String.format("%d", modelo.getTipo()));
+				
+				Element usu_usuario = new Element("USU_USUARIO");
+				usu_usuario.setText(modelo.getUsuario());
+				
+				Element usu_senha = new Element("USU_SENHA");
+				usu_senha.setText(modelo.getSenha());
+				
+				
+				usu.addContent(pes_codigo);
+				usu.addContent(usu_usuario);
+				usu.addContent(usu_senha);
+				usu.addContent(usu_tipo);
+				root.addContent(usu);
+			}
 			
-			Element pes_codigo = new Element("pes_codigo");
-			pes_codigo.setText(String.format("%d", modelo.getPessoa()));
-		
-			Element usu_tipo = new Element("usu_tipo");
-			usu_tipo.setText(String.format("%d", modelo.getTipo()));
+			try {
+				XMLOutputter xout = new XMLOutputter();
+				OutputStream out = new FileOutputStream(new File(local));
+				xout.output(documento, out);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
 			
-			
-			usuario.addContent(usu_usuario);
-			usuario.addContent(usu_senha);
-			usuario.addContent(pes_codigo);
-			usuario.addContent(usu_tipo);
-			
-			total.addContent(usuario);
+			return true;
+		} else {
+			return false;
 		}
-		
-		XMLOutputter geradorXML = new XMLOutputter();
+	}
+
+	// ARQUIVOS
+	private File criarArquivo() {
+		File arquivo = new File(local);
+		File locall = new File(pastaDestino);
 		
 		try {
-			BufferedWriter arquivo = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(LocalArquivo), "UTF-8"));
-			geradorXML.output(documento, arquivo);
-			return true;
+			if (!arquivo.exists()) {	
+				locall.mkdir();
+				arquivo.createNewFile();
+			} else {
+				arquivo.delete();
+				arquivo.createNewFile();
+			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
-				
-		return false;
+		
+		return arquivo;
 	}
 }

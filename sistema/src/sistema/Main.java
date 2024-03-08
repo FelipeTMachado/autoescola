@@ -4,20 +4,26 @@ import sistema.controle.ControlePessoa;
 import sistema.controle.ControleUsuario;
 import sistema.controle.FabricaControle;
 import sistema.persistencia.TipoPersistencia;
-import sistema.persistencia.mysql.ConexaoMySQL;
 import sistema.sistema.Aplicacao;
 
 public class Main {
 	public static void main(String[] args) {
 		try {
-			Aplicacao.getInstance().setTipoPersistencia(TipoPersistencia.XML);
-			ConexaoMySQL.getInstance().iniciarConexao("localhost", "root", "315865", "AUTOESCOLA", 3306);
+			if (args.length == 0) {
+				Aplicacao.getInstance().setTipoPersistencia(TipoPersistencia.MYSQL);
 				
-			//iniciarTelas();
-			
-			ControleUsuario controle = FabricaControle.criarControleUsuario();
-			controle.buscar();
-			//controle.salvarUsuario();
+				iniciarTelas();
+			} else {
+				if (args[0].equals("criar")) {
+					Aplicacao.getInstance().setTipoPersistencia(TipoPersistencia.JSON);
+					
+					ControlePessoa pessoa = FabricaControle.criarControlePessoa();
+					pessoa.salvarPessoaPadrao();
+					
+					ControleUsuario usuario = FabricaControle.criarControleUsuario();
+					usuario.salvarUsuarioPadrao();
+				}
+			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} 

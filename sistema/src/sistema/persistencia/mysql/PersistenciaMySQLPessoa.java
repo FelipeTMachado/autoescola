@@ -96,7 +96,11 @@ public class PersistenciaMySQLPessoa implements Persistencia<ModeloPessoa>{
 	
 	@Override
 	public boolean salvar(ModeloPessoa prModelo) {
-		// TODO Auto-generated method stub
+		
 		return false;
+	}
+	
+	public int buscarProximo() {
+		return 10;
 	}
 }

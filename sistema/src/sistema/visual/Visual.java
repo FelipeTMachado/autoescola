@@ -8,13 +8,14 @@ import java.nio.charset.StandardCharsets;
 import sistema.sistema.Aplicacao;
 
 public class Visual {
+	// ATRIBUTOS
 	private static Visual visual;
 	public int tamanhoTela = 80;
 	
-	public void configurarTela(int prTamanhoTela) {
-		this.tamanhoTela = prTamanhoTela;
-	}
 	
+	
+	
+	// CONSTRUTOR NO PADRAO SINGLETON
 	private Visual() {
 		
 	}
@@ -30,7 +31,16 @@ public class Visual {
 	
 	
 	
-	// RETORNA DADO
+	
+	// METODOS DE CONFIGURACAO
+	public void configurarTela(int prTamanhoTela) {
+		this.tamanhoTela = prTamanhoTela;
+	}
+	
+	
+	
+	
+	// METODOS DE RETORNO DE DADOS
 	public String retornaDado(String prTexto) {
 		if (prTexto.trim().equals("")) {
 			System.out.print(prTexto);
@@ -48,7 +58,6 @@ public class Visual {
 		}
 	}
 	
-	// RETORNA DADO COM MASCARA DE SENHA
 	public String retornaPassword(String prTexto) {
 		if (Aplicacao.getInstance().getConsole()  == null) {
 			System.out.print("| " + prTexto);
@@ -58,6 +67,10 @@ public class Visual {
 		}
 	}
 	
+	
+	
+	
+	// METODOS DE MANIPULACAO DE STRINGS
 	public String multiplicarCaracteres(String prCaractere) {
 		return multiplicarCaracteres(prCaractere, tamanhoTela);
 	};
@@ -72,6 +85,10 @@ public class Visual {
 		return caracteres;
 	};
 	
+	
+	
+	
+	// METODOS DE VISUALIZACAO DE METODOS
 	public void visualizarTextoSemFormatacao(String prTexto) {
 		System.out.println(prTexto);
 	}

@@ -2,6 +2,7 @@ package sistema.controle;
 
 import sistema.persistencia.json.PersistenciaJSONPessoa;
 import sistema.persistencia.json.PersistenciaJSONUsuario;
+import sistema.persistencia.mysql.ConexaoMySQL;
 import sistema.persistencia.mysql.PersistenciaMySQLPessoa;
 import sistema.persistencia.mysql.PersistenciaMySQLUsuario;
 import sistema.persistencia.xml.PersistenciaXMLPessoa;
@@ -12,6 +13,7 @@ public class FabricaControle {
 	public static ControleUsuario criarControleUsuario() {
 		switch (Aplicacao.getInstance().getTipoPersistencia()) {
 		case MYSQL: {
+			ConexaoMySQL.getInstance().iniciarConexao("localhost", "root", "315865", "AUTOESCOLA", 3306);
 			return new ControleUsuario(new PersistenciaMySQLUsuario());
 		}
 		
